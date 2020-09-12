@@ -1,0 +1,182 @@
+body {
+    background-color: rgb(220, 220, 220);
+}
+
+#main {
+    width: 1200px;
+    margin: auto;
+    position: relative;
+}
+
+#map {
+    width: 800px;
+    height: 600px !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#spoilers {
+    width: 400px;
+    height: 600px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+}
+
+.spoiler {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0px;
+    height: 600px;
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    font-family: 'PT Sans', sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: .3s;
+    border-bottom: 1px solid gray;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.activeSpoiler {
+    width: 400px;
+    transition: .3s;
+}
+
+.red {
+    color: #F73434;
+}
+
+.gray {
+    color: gray;
+}
+
+.spoilerIcon {
+    position: absolute;
+    height: 80px;
+    line-height: 80px;
+    left: 20px;
+    font-size: 36px;
+    top: 10px;
+    padding: 0;
+    margin: 0;
+    transition: .3s;
+}
+
+.spoilerName {
+    position: absolute;
+    left: 70px;
+    max-width: 300px;
+    font-size: 14px;
+    top: 15px;
+    padding: 0;
+    margin: 0;
+    transition: .3s;
+}
+
+#adressSpoiler .spoilerName{
+    font-size: 10px;
+}
+
+.spoilerInfo {
+    position: absolute;
+    left: 70px;
+    font-size: 14px;
+    bottom: 15px;
+    padding: 0;
+    margin: 0;
+    transition: .3s;
+}
+
+#adressSpoiler .spoilerInfo{
+    font-size: 10px;
+}
+
+.spoilerArrow {
+    position: absolute;
+    right: 20px;
+    font-size: 18px;
+    top: 10px;
+    height: 80px;
+    line-height: 80px;
+    padding: 0;
+    margin: 0;
+    transition: .3s;
+}
+
+.spoilerBox {
+    box-sizing: border-box;
+    position: relative;
+    width: 400px;
+    height: 100px;
+    /* display: none;     */
+    /* z-index: 1; */
+    margin: 0;
+    padding: 0;
+    transition: .3s;
+    border-bottom: 1px solid gray;
+}
+
+.spoilerBox:hover {
+    background-color: #F73434;
+    transition: .3s;
+    border-bottom: 1px solid #F73434;
+}
+
+.spoilerBox:hover .spoilerIcon{
+    transition: .3s;
+    color: white;
+}
+
+.spoilerBox:hover .spoilerName{
+    transition: .3s;
+    color: white;
+}
+
+.spoilerBox:hover .spoilerInfo{
+    transition: .3s;
+    color: white;
+}
+
+.spoilerBox:hover .spoilerArrow{
+    transition: .3s;
+    color: white;
+}
+
+.back {
+    position: relative;
+    width: 400px;
+    height: 40px;
+    border-bottom: 1px solid gray;
+    color: #F73434;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'PT Sans', sans-serif;
+    transition: .3s;
+}
+
+.back:hover {
+    background-color:  #F73434;
+    border-bottom: 1px solid  #F73434;
+    color:white;
+    transition: .3s;
+}
+
+.spoilerCategory {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+}
+
+.spoilerContent {
+    position: relative;
+    height: max-content;
+    width: 400px;
+}

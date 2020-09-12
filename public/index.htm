@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example IGT</title>
+    <script src="js/front.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1.77/?apikey=00107961-9380-4b22-b49f-970fdb90c2af&lang=ru_RU" type="text/javascript"></script>
+    <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div id="main">
+        <div id="map"></div>
+
+        <div id="spoilers">
+            <div class="spoiler activeSpoiler" id="categoriesSpoiler">
+            </div>
+
+            <div class="spoiler" id="helpSpoiler">
+                <div class="back" id="helpBackSpoiler" >< Назад к категориям</div>
+                <div class="spoilerContent" id="helpSpoilerContent"></div>
+            </div>
+
+            <div class="spoiler" id="areaSpoiler">
+                <div class="back" id="areaBackSpoiler" >< Назад к услугам</div>
+                <div class="spoilerContent" id="areaSpoilerContent"></div>
+            </div>
+
+            <div class="spoiler" id="adressSpoiler">
+                <div class="back" id="adressBackSpoiler">< Назад к районам</div>
+                <div class="spoilerContent" id="adressSpoilerContent"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
