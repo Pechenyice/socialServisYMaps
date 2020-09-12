@@ -76,5 +76,5 @@ app.post("/mapPoints", urlencodedParser, (req, res) => {
     res.sendFile(__dirname +'/test1234.json');
 });
   
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
 console.log(':3000');
