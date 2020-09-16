@@ -69,14 +69,13 @@ body {
 }
 
 .spoilerName {
-    position: absolute;
-    left: 70px;
+    position: relative;
+    margin-left: 70px;
     max-width: 300px;
     font-size: 14px;
-    top: 15px;
     padding: 0;
-    margin: 0;
     transition: .3s;
+    margin-bottom: 30px;
 }
 
 #adressSpoiler .spoilerName{
@@ -84,12 +83,13 @@ body {
 }
 
 .spoilerInfo {
-    position: absolute;
-    left: 70px;
+    position: relative;
+    margin-left: 70px;
     font-size: 14px;
-    bottom: 15px;
+    max-width: 300px;
+    /* margin-bottom: 1px; */
     padding: 0;
-    margin: 0;
+    /* margin: 0; */
     transition: .3s;
 }
 
@@ -113,13 +113,15 @@ body {
     box-sizing: border-box;
     position: relative;
     width: 400px;
-    height: 100px;
+    min-height: 100px;
+    max-height: max-content;
     /* display: none;     */
     /* z-index: 1; */
     margin: 0;
     padding: 0;
     transition: .3s;
     border-bottom: 1px solid gray;
+    padding-top: 1px;
 }
 
 .spoilerBox:hover {
@@ -179,4 +181,20 @@ body {
     position: relative;
     height: max-content;
     width: 400px;
+}
+
+.spoilerBoxSignature {
+    width: 400px;
+    height: 20px;
+    border-bottom: 2px solid #F73434;
+    position: relative;
+    color: white;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    background-color: #F73434;
 }

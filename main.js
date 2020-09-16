@@ -12,10 +12,10 @@ main();
 
 async function main() {
     const converter = csv({
-    delimiter: ";",
+    delimiter: ";"
     });
 
-    let data = await converter.fromFile("top_csv.csv");
+    let data = await converter.fromFile("data.csv");
     
     //запрос на координаты точек
     for (var elem in data) {
@@ -37,34 +37,28 @@ async function main() {
             + "&kind=" + "district"
             );
             
-            if (response.data.response.GeoObjectCollection.featureMember.length != 0)
-            {
-            let address_components = response.data.response.GeoObjectCollection.featureMember[0].GeoObject;
-            address_components = address_components.metaDataProperty.GeocoderMetaData.Address.Components;
+            if (response.data.response.GeoObjectCollection.featureMember.length != 0) {
+                let address_components = response.data.response.GeoObjectCollection.featureMember[0].GeoObject;
+                address_components = address_components.metaDataProperty.GeocoderMetaData.Address.Components;
+                data[elem]['Район'] = null;
+                for (comp of address_components) {
+                    if (comp.kind != "area") continue;
+                    data[elem]['Район'] = comp.name;
+                    break;
+                }
 
-            data[elem]['Район'] = null;
-
-            for (comp of address_components)
-            {
-            if (comp.kind != "area") continue;
-
-            data[elem]['Район'] = comp.name;
-            break;
+                if (data[elem]['Район'] == null) {
+                    if (address_components[address_components.length - 2].kind == "district") data[elem]['Район'] = address_components[address_components.length - 2].name; else data[elem]['Район'] = address_components[address_components.length - 1].name;
+                }
+            } else {
+                data[elem]['Район'] = "Некоммерческие организации";
             }
 
-            if (data[elem]['Район'] == null)
-            {
-            if (address_components[address_components.length - 2].kind == "district")
-            data[elem]['Район'] = address_components[address_components.length - 2].name;
-            else
-            data[elem]['Район'] = address_components[address_components.length - 1].name;
-            }
-            } else
-            {
-            data[elem]['Район'] = "Другие";
-            }
+            var url = data[elem]['Контактная информация поставщика социальных услуг (телефоны, адрес электронной почты...)'].split(',');
+            url = url[url.length-1];
+            data[elem]['url'] = url;
     }
-    fs.writeFileSync("test1234.json", JSON.stringify(data));
+    fs.writeFileSync("data.json", JSON.stringify(data));
     
 }
 //маршрутизация
@@ -73,7 +67,7 @@ app.get("/", urlencodedParser, function (request, response) {
 });
 
 app.post("/mapPoints", urlencodedParser, (req, res) => {
-    res.sendFile(__dirname +'/test1234.json');
+    res.sendFile(__dirname +'/data.json');
 });
   
 app.listen(process.env.PORT || 3000);
