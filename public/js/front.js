@@ -14,7 +14,7 @@ window.onload = () => {
   var activeCategory = '';
   var activeHelp = '';
   var activeArea = '';
-  var preset;
+  // var preset;
 
   ymaps.ready(init);
   //подгрузка карты
@@ -57,11 +57,11 @@ window.onload = () => {
       }
 
       for (var elem in data) {
-        if (!helpCounter[data[elem]['Поисковые слова']]) helpCounter[data[elem]['Поисковые слова']] = 1; else helpCounter[data[elem]['Поисковые слова']]++;
+        if (!helpCounter[data[elem]['категория'] +' '+ data[elem]['Поисковые слова']]) helpCounter[data[elem]['категория'] +' '+ data[elem]['Поисковые слова']] = 1; else helpCounter[data[elem]['категория'] +' '+ data[elem]['Поисковые слова']]++;
       }
 
       for (var elem in data) {
-        if (!areaCounter[data[elem]['Поисковые слова'] + ' ' +  data[elem]['Район']]) areaCounter[data[elem]['Поисковые слова'] + ' ' +  data[elem]['Район']] = 1; else areaCounter[data[elem]['Поисковые слова'] + ' ' +  data[elem]['Район']]++;
+        if (!areaCounter[data[elem]['категория'] + ' ' + data[elem]['Поисковые слова'] + ' ' +  data[elem]['Район']]) areaCounter[data[elem]['категория'] + ' ' + data[elem]['Поисковые слова'] + ' ' +  data[elem]['Район']] = 1; else areaCounter[data[elem]['категория'] + ' ' + data[elem]['Поисковые слова'] + ' ' +  data[elem]['Район']]++;
       }
       
       
@@ -69,10 +69,10 @@ window.onload = () => {
 
       //создание точек
       for (var elem in data) {
-        if (data[elem]['Район'] == 'Некоммерческие организации') preset = "islands#redIcon"; else preset = "islands#blueIcon";
+        // if (data[elem]['Район'] == 'Некоммерческие организации') preset = "islands#redIcon"; else preset = "islands#blueIcon";
         
 
-        var coords = data[elem]['Координаты']['pos'].split(' ');
+        var coords = data[elem]['pos'].split(' ');
               var x = +(coords[1]);
               var y = +(coords[0]);
               coords = [];
@@ -87,17 +87,17 @@ window.onload = () => {
                     "coordinates": coords
                 },
                 "properties":{
-                    "balloonContent": "<h2 class='red'>" +data[elem]['Наименование поставщика социальных услуг']+"</h2><br/><p class='gray'>"+data[elem]['Контактная информация поставщика социальных услуг (телефоны, адрес электронной почты...)']+"</p><p class='gray'>"+data[elem]['Адрес места нахождения поставщика социальных услуг']+"</p><br/><a href=\""+data[elem]['url']+"\">"+data[elem]['url']+"</a>",
+                    "balloonContent": "<h2 class='red'>" +data[elem]['Наименование поставщика социальных услуг']+"</h2><br/><p class='gray'>"+data[elem]['Контактная информация поставщика социальных услуг (телефоны, адрес электронной почты...)']+"</p><p class='gray'>"+data[elem]['Описание']+"</p><p class='gray'>"+data[elem]['Адрес места нахождения поставщика социальных услуг']+"</p><br/><a href=\""+data[elem]['Сайт']+"\">Перейти на сайт</a>",
                     "clusterCaption": data[elem]['Адрес места нахождения поставщика социальных услуг'],
                     "hintContent": data[elem]['Адрес места нахождения поставщика социальных услуг']
                 },
                 options: {
-                  area: data[elem]['Поисковые слова'] + ' ' + data[elem]['Район'],
+                  area: data[elem]['категория'] +' '+ data[elem]['Поисковые слова'] + ' ' + data[elem]['Район'],
                   category: data[elem]['категория'],
-                  helper: data[elem]['Поисковые слова'],
+                  helper: data[elem]['категория'] +' '+ data[elem]['Поисковые слова'],
                   helperCategory: data[elem]['Категория поисковых слов'],
                   rightCoords: coords.join(' '),
-                  preset: preset
+                  preset: data[elem]['Пресет']
               }
             } 
               points.push(point);
@@ -147,7 +147,7 @@ window.onload = () => {
             document.getElementById('helpSpoilerContent').innerHTML += '<div class="spoilerBoxSignature">Услуги: '+data[elem]['Категория поисковых слов']+'</div>';
           }
           
-          document.getElementById('helpSpoilerContent').innerHTML += '<div class="spoilerBox helpSpoilerBox" data="'+ data[elem]['Поисковые слова'] +'"><p class="spoilerIcon red">'+ data[elem]['Иконка'] +'</p><p class="spoilerName red">'+data[elem]['Поисковые слова']+'</p><p class="spoilerInfo gray"><span class="infoCount">'+ helpCounter[data[elem]['Поисковые слова']] + '</span> мест(-а)</p><p class="spoilerArrow gray">></p></div>'
+          document.getElementById('helpSpoilerContent').innerHTML += '<div class="spoilerBox helpSpoilerBox" data="'+ data[elem]['категория'] +' '+ data[elem]['Поисковые слова'] +'"><p class="spoilerIcon red">'+ data[elem]['Иконка'] +'</p><p class="spoilerName red">'+data[elem]['Поисковые слова']+'</p><p class="spoilerInfo gray"><span class="infoCount">'+ helpCounter[data[elem]['категория'] +' '+ data[elem]['Поисковые слова']] + '</span> мест(-а)</p><p class="spoilerArrow gray">></p></div>'
           
           $(".helpSpoilerBox").click(function () {
             document.getElementById('areaSpoiler').classList.add('activeSpoiler');
@@ -160,16 +160,16 @@ window.onload = () => {
                       //создание структуры районов для выбранной услуги
 
                       for (var area in data) {
-                        if (data[area]['Поисковые слова'] == help && data[area]['Район'] == 'Некоммерческие организации') {
-                          document.getElementById('areaSpoilerContent').innerHTML += '<div class="spoilerBox areaSpoilerBox" data="'+ data[area]['Поисковые слова'] + ' ' +data[area]['Район'] +'"><p class="spoilerIcon red"><i class="fas fa-globe"></i></p><p class="spoilerName red">'+data[area]['Район']+'</p><p class="spoilerInfo gray"><span class="infoCount">'+ areaCounter[data[area]['Поисковые слова'] + ' ' +  data[area]['Район']] + '</span> точки(-ек)</p><p class="spoilerArrow gray">></p></div>';
+                        if (data[area]['категория'] + ' ' + data[area]['Поисковые слова'] == help && data[area]['Район'] == 'Некоммерческие организации') {
+                          document.getElementById('areaSpoilerContent').innerHTML += '<div class="spoilerBox areaSpoilerBox" data="'+ data[area]['категория'] +' '+ data[area]['Поисковые слова'] + ' ' +data[area]['Район'] +'"><p class="spoilerIcon red"><i class="fas fa-globe"></i></p><p class="spoilerName red">'+data[area]['Район']+'</p><p class="spoilerInfo gray"><span class="infoCount">'+ areaCounter[data[area]['категория'] +' '+ data[area]['Поисковые слова'] + ' ' +data[area]['Район']] + '</span> точки(-ек)</p><p class="spoilerArrow gray">></p></div>';
                           break;
                         }
                       }
 
                       for (var el in data) {
-                        if ((data[el]['Поисковые слова'] == help && el > 0 && data[el]['Район'] != data[el-1]['Район']) || (data[el]['Поисковые слова'] == help && el == 0)) {
+                        if ((data[el]['категория'] +' '+ data[el]['Поисковые слова'] == help && el > 0 && data[el]['Район'] != data[el-1]['Район']) || (data[el]['категория'] +' '+ data[el]['Поисковые слова'] == help && el == 0)) {
                           if (data[el]['Район'] == 'Некоммерческие организации') continue;
-                          document.getElementById('areaSpoilerContent').innerHTML += '<div class="spoilerBox areaSpoilerBox" data="'+ data[el]['Поисковые слова'] + ' ' +data[el]['Район'] +'"><p class="spoilerIcon red"><i class="fas fa-globe"></i></p><p class="spoilerName red">'+data[el]['Район']+'</p><p class="spoilerInfo gray"><span class="infoCount">'+ areaCounter[data[el]['Поисковые слова'] + ' ' +  data[el]['Район']] + '</span> точки(-ек)</p><p class="spoilerArrow gray">></p></div>'
+                          document.getElementById('areaSpoilerContent').innerHTML += '<div class="spoilerBox areaSpoilerBox" data="'+ data[el]['категория'] +' '+ data[el]['Поисковые слова'] + ' ' +data[el]['Район'] +'"><p class="spoilerIcon red"><i class="fas fa-globe"></i></p><p class="spoilerName red">'+data[el]['Район']+'</p><p class="spoilerInfo gray"><span class="infoCount">'+ areaCounter[data[el]['категория'] +' '+ data[el]['Поисковые слова'] + ' ' +data[el]['Район']] + '</span> точки(-ек)</p><p class="spoilerArrow gray">></p></div>'
                           
                           $(".areaSpoilerBox").click(function () {
                             document.getElementById('adressSpoiler').classList.add('activeSpoiler');
@@ -180,8 +180,8 @@ window.onload = () => {
                             areaFiltration(areaFilter);
                             //создание структуры точек
                             for (var id in data) {
-                              if (data[id]['Поисковые слова'] + ' ' + data[id]['Район'] == area) {
-                                var coords = data[id]['Координаты']['pos'].split(' ');
+                              if (data[id]['категория'] +' '+ data[id]['Поисковые слова'] + ' ' +data[id]['Район'] == area) {
+                                var coords = data[id]['pos'].split(' ');
                                 var x = +(coords[1]);
                                 var y = +(coords[0]);
                                 coords = [];
