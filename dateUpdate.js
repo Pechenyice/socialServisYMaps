@@ -24,7 +24,7 @@ async function main() {
             response = await axios.get(
                 "https://geocode-maps.yandex.ru/1.x"
                 + "?geocode=" + encodeURI(data[elem]['Адрес места нахождения поставщика социальных услуг'])
-                + "&apikey=" + encodeURI("00107961-9380-4b22-b49f-970fdb90c2af")
+                + "&apikey=" + encodeURI("*YOUR YANDEX MAPS TOKEN HERE*")
                 + "&format=" + "json"
             );
             
@@ -34,7 +34,7 @@ async function main() {
             response = await axios.get(
                 "https://geocode-maps.yandex.ru/1.x"
                 + "?geocode=" + encodeURI(data[elem]['Координаты']['pos'])
-                + "&apikey=" + encodeURI("00107961-9380-4b22-b49f-970fdb90c2af")
+                + "&apikey=" + encodeURI("*YOUR YANDEX MAPS TOKEN HERE*")
                 + "&format=" + "json"
                 + "&kind=" + "district"
             );

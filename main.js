@@ -33,7 +33,8 @@ response.sendFile(__dirname + "/public/index.htm");
 
 app.post("/mapPoints", urlencodedParser, function (req, res) {
 // console.log("zapros ok");
-res.send(JSON.stringify(data));
+// res.send(JSON.stringify(data));
+res.sendFile(__dirname + "/adov_dataset.json");
 });
 
 app.listen(process.env.PORT || 3000);
